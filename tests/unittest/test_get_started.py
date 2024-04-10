@@ -12,33 +12,33 @@ from starter.get_started import (
 class TestFileExists:
     def test_return_true_when_env_file_exists(self, mocker):
         mocker.patch('os.listdir', return_value=['.env'])
-        assert file_exists() == True
+        assert file_exists() is True
 
     def test_return_false_when_env_file_does_not_exist(self, mocker):
         mocker.patch('os.listdir', return_value=[])
-        assert file_exists() == False
+        assert file_exists() is False
 
 
 class TestValidKeyinput:
     def test_return_true_when_input_is_Y(self):
-        assert valid_keyinput('Y') == True
+        assert valid_keyinput('Y') is True
 
     def test_return_true_when_input_is_n(self):
-        assert valid_keyinput('n') == True
+        assert valid_keyinput('n') is True
 
     def test_return_true_when_input_is_empty(self):
-        assert valid_keyinput('') == True
+        assert valid_keyinput('') is True
 
     def test_return_false_when_input_is_not_Y_n_or_empty(self):
-        assert valid_keyinput('x') == False
+        assert valid_keyinput('x') is False
 
 
 class TestValidToken:
     def test_return_true_when_token_is_59_characters_long(self):
-        assert valid_token('a'*59) == True
+        assert valid_token('a'*59) is True
 
     def test_return_false_when_token_is_not_59_characters_long(self):
-        assert valid_token('a'*58) == False
+        assert valid_token('a'*58) is False
 
 
 class TestSetUrl:
