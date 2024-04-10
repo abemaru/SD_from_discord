@@ -1,12 +1,13 @@
 import os
 
 
-def create_env_file(discord_bot_token: str) -> None:
+def create_env_file(discord_bot_token: str, sd_url: str) -> None:
     """
         creates a .env file in the current directory for sd_from_discord
     """
     with open('.env', 'w') as f:
         f.write(f'DISCORD_BOT_TOKEN={discord_bot_token}')
+        f.write(f'STABLE_DIFFUTION_API_URL={sd_url}')
 
 
 def file_exists() -> bool:
@@ -32,6 +33,13 @@ def valid_token(token: str) -> bool:
     return len(token) == 59
 
 
+def set_url(url: str) -> str:
+    """
+        sets the url to localhost:7860 if empty
+    """
+    return url if url else 'http://127.0.0.1:7860'
+
+
 if __name__ == '__main__':
     if file_exists():
         choice = input(
@@ -50,4 +58,7 @@ if __name__ == '__main__':
     if not valid_token(discord_bot_token):
         raise ValueError('Invalid token. Token must be 59 characters long.')
 
-    create_env_file(discord_bot_token)
+    input_url = input('Enter the stable diffusion api url(if empty, localhost:7860 will be set): ')
+    sd_url = set_url(input_url)
+
+    create_env_file(discord_bot_token, sd_url)
